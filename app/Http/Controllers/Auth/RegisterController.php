@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Empresa;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\User;
@@ -50,6 +51,8 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
+            'ruc' => ['required', 'string', 'min:11'],
+            'razon_social' => ['required', 'string', 'min:3'],
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
@@ -64,9 +67,15 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $empresa_id = Empresa::create([
+            'ruc' => $data['ruc'],
+            'razon_social' => $data['razon_social']
+        ])->id;
+
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
+            'empresa_id' => $empresa_id,
             'password' => Hash::make($data['password']),
         ]);
     }

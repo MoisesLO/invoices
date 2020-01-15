@@ -5,9 +5,16 @@
 
                 <p class="login-box-msg">Datos de la empresa</p>
 
+                <!-- Errores -->
+<!--                <div class="alert alert-danger alert-dismissible" v-if="errores.length > 2">-->
+<!--                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>-->
+<!--                    <h5><i class="icon fas fa-ban"></i> Error!</h5>-->
+<!--                    {{errores}}-->
+<!--                </div>-->
+
                 <!-- Ruc -->
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="RUC" v-model="login.ruc">
+                    <input type="text" class="form-control" placeholder="RUC" v-model="register.ruc">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-user"></span>
@@ -17,7 +24,7 @@
 
                 <!-- Razon Social-->
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Razon Social" v-model="login.razon">
+                    <input type="text" class="form-control" placeholder="Razon Social" v-model="register.razon">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-envelope"></span>
@@ -29,7 +36,7 @@
 
                 <!-- Email -->
                 <div class="input-group mb-3">
-                    <input type="email" class="form-control" placeholder="Email" v-model="login.email">
+                    <input type="text" class="form-control" placeholder="Email" v-model="register.email">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-lock"></span>
@@ -39,7 +46,7 @@
 
                 <!--Password-->
                 <div class="input-group mb-3">
-                    <input type="password" class="form-control" placeholder="Contrasenia" v-model="login.password">
+                    <input type="password" class="form-control" placeholder="Contrasenia" v-model="register.password">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-lock"></span>
@@ -58,12 +65,12 @@
                     </div>
                     <!-- /.col -->
                     <div class="col-4">
-                        <button type="submit" class="btn btn-primary btn-block">Registrar</button>
+                        <button type="submit" class="btn btn-primary btn-block" :disabled="isDisabled">Registrar</button>
                     </div>
                     <!-- /.col -->
                 </div>
             </form>
-            <a href="login.html" class="text-center">I already have a membership</a>
+            <a href="register.html" class="text-center">I already have a membership</a>
         </div>
         <!-- /.form-box -->
     </div><!-- /.card -->
@@ -71,11 +78,13 @@
 
 <script>
     import axios from 'axios'
+    import Swal from 'sweetalert2'
 
     export default {
         data() {
             return {
-                login: {
+                errores: "",
+                register: {
                     ruc: "",
                     razon: "",
                     email: "",
@@ -85,7 +94,49 @@
         },
         methods: {
             registrar: function () {
-                console.log(this.login)
+                axios.post('/registrar',
+                    {
+                        ruc: this.register.ruc,
+                        razon_social: this.register.razon,
+                        email: this.register.email,
+                        password: this.register.password
+                        })
+                    .then(res => {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Registro Correcto..!',
+                            text: "Logeate por favor para continuar."
+
+                        }).then((result) => {
+                            if (result.value) {
+                                window.location.href = "/login";
+                            }
+                        });
+                        console.log(res.data)
+                    })
+                    .catch(e => {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'Algunos datos que ingresastes son incorrectos',
+                        });
+                        this.errores = e.response.data.message;
+                        // console.log(e.response.data)
+                        console.log(e.response.data)
+                    });
+            }
+        },
+        computed: {
+            isDisabled: function () {
+                let disabled = true;
+                if (    this.register.ruc.length > 0 &&
+                        this.register.razon.length > 0 &&
+                        this.register.email.length > 0 &&
+                        this.register.password.length > 0
+                ) {
+                    disabled = false;
+                }
+                return disabled;
             }
         }
     }

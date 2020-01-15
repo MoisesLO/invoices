@@ -15,10 +15,25 @@ Route::get('/', function () {
     return view('home');
 });
 
-Route::get('/login', function () {
-    return view('auth/login');
-});
+//Route::get('/login', function () {
+//    return view('auth/login');
+//});
+//
+//Route::get('/register', function () {
+//    return view('auth/register');
+//});
 
-Route::get('/register', function () {
-    return view('auth/register');
-});
+//Route::post('/registrar', 'AutenticacionController@registrar');
+//Route::post('/login', 'AutenticacionController@login');
+//
+//Route::get('/datos', 'AutenticacionController@datos');
+Route::get('/productos', 'ProductoController@index');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+
+
+
+
