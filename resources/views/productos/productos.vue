@@ -7,7 +7,7 @@
         </div>
         <div class="bd-highlight">
           <button class="btn btn-primary d-inline-block ml-1"><i class="fa fa-search"></i> Buscar</button>
-          <button class="btn btn-secondary d-inline-block mr-4"><i class="fa fa-list"></i> Categorias</button>
+          <button class="btn btn-secondary d-inline-block mr-4" @click="openModal"><i class="fa fa-list"></i> Categorias</button>
         </div>
         <div class="bd-highlight">
 
@@ -20,6 +20,53 @@
           </ul>
         </div>
       </div>
+
+      <!-- Modal Categorias -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Categorias de Productos</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <table class="table table-sm table-striped">
+                <tr>
+                  <td>#</td>
+                  <td>Codigo</td>
+                  <td>Nombre</td>
+                  <td>Acciones</td>
+                </tr>
+                <tr>
+                  <td>1</td>
+                  <td>DGTRF4587</td>
+                  <td>Arroz Costenio Graneadito 5 KG</td>
+                  <td class="m-0">
+                    <button class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></button>
+                    <button class="btn btn-primary btn-sm"><i class="fa fa-trash"></i></button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>DGTRF4587</td>
+                  <td>Arroz Costenio Graneadito 5 KG</td>
+                  <td class="m-0">
+                    <button class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></button>
+                    <button class="btn btn-primary btn-sm"><i class="fa fa-trash"></i></button>
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- End Modal Categorias -->
+
     </div>
     <div class="card-body">
 
@@ -59,3 +106,18 @@
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  data(){
+    return {
+
+    }
+  },
+  methods: {
+    openModal: function () {
+      $('#exampleModal').modal('show');
+    }
+  }
+}
+</script>

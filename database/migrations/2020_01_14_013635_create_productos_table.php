@@ -13,10 +13,10 @@ class CreateProductosTable extends Migration
       $table->bigIncrements('id');
       $table->string('codigo',50)->unique();
       $table->string('nombre',50)->unique();
-      $table->string('descripcion');
+      $table->string('descripcion')->nullable();
       $table->decimal('preciosinigv', 8, 2);
       $table->decimal('precioconigv', 8, 2);
-      $table->unsignedInteger('categoria_id');
+      $table->unsignedInteger('categoria_id')->nullable();
       $table->timestamps();
     });
   }
