@@ -18,6 +18,10 @@
 
   <!-- Styles -->
   <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link href="{{ asset('plugins/fontawesome-free/css/all.css') }}" rel="stylesheet">
+  
 </head>
 <body>
 <div id="app">
@@ -38,7 +42,7 @@
         <!-- Left Side Of Navbar -->
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="/productos">Productos <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="{{ url('/productos') }}">Productos <span class="sr-only">(current)</span></a>
           </li>
         </ul>
 

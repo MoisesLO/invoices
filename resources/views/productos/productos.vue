@@ -39,19 +39,10 @@
                   <td>Nombre</td>
                   <td>Acciones</td>
                 </tr>
-                <tr>
-                  <td>1</td>
-                  <td>DGTRF4587</td>
-                  <td>Arroz Costenio Graneadito 5 KG</td>
-                  <td class="m-0">
-                    <button class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></button>
-                    <button class="btn btn-primary btn-sm"><i class="fa fa-trash"></i></button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td>DGTRF4587</td>
-                  <td>Arroz Costenio Graneadito 5 KG</td>
+                <tr v-for="(categoria, index) in categorias">
+                  <td>{{ index +1 }}</td>
+                  <td>{{ categoria.codigo }}</td>
+                  <td>{{ categoria.nombre }}</td>
                   <td class="m-0">
                     <button class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></button>
                     <button class="btn btn-primary btn-sm"><i class="fa fa-trash"></i></button>
@@ -111,12 +102,16 @@
 export default {
   data(){
     return {
-
+      categorias: {}
     }
   },
   methods: {
     openModal: function () {
       $('#exampleModal').modal('show');
+      axios.post('categorias').then(res => {
+        this.categorias = res.data;
+        console.log(this.categorias)
+      })
     }
   }
 }

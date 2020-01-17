@@ -1971,22 +1971,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
-    return {};
+    return {
+      categorias: {}
+    };
   },
   methods: {
     openModal: function openModal() {
+      var _this = this;
+
       $('#exampleModal').modal('show');
+      axios.post('categorias').then(function (res) {
+        _this.categorias = res.data;
+        console.log(_this.categorias);
+      });
     }
   }
 });
@@ -37453,10 +37452,58 @@ var render = function() {
         _vm._m(2)
       ]),
       _vm._v(" "),
-      _vm._m(3)
+      _c(
+        "div",
+        {
+          staticClass: "modal fade",
+          attrs: {
+            id: "exampleModal",
+            tabindex: "-1",
+            role: "dialog",
+            "aria-labelledby": "exampleModalLabel",
+            "aria-hidden": "true"
+          }
+        },
+        [
+          _c(
+            "div",
+            { staticClass: "modal-dialog", attrs: { role: "document" } },
+            [
+              _c("div", { staticClass: "modal-content" }, [
+                _vm._m(3),
+                _vm._v(" "),
+                _c("div", { staticClass: "modal-body" }, [
+                  _c(
+                    "table",
+                    { staticClass: "table table-sm table-striped" },
+                    [
+                      _vm._m(4),
+                      _vm._v(" "),
+                      _vm._l(_vm.categorias, function(categoria, index) {
+                        return _c("tr", [
+                          _c("td", [_vm._v(_vm._s(index + 1))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(categoria.codigo))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(categoria.nombre))]),
+                          _vm._v(" "),
+                          _vm._m(5, true)
+                        ])
+                      })
+                    ],
+                    2
+                  )
+                ]),
+                _vm._v(" "),
+                _vm._m(6)
+              ])
+            ]
+          )
+        ]
+      )
     ]),
     _vm._v(" "),
-    _vm._m(4)
+    _vm._m(7)
   ])
 }
 var staticRenderFns = [
@@ -37523,117 +37570,69 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass: "modal fade",
-        attrs: {
-          id: "exampleModal",
-          tabindex: "-1",
-          role: "dialog",
-          "aria-labelledby": "exampleModalLabel",
-          "aria-hidden": "true"
-        }
-      },
-      [
-        _c(
-          "div",
-          { staticClass: "modal-dialog", attrs: { role: "document" } },
-          [
-            _c("div", { staticClass: "modal-content" }, [
-              _c("div", { staticClass: "modal-header" }, [
-                _c(
-                  "h5",
-                  {
-                    staticClass: "modal-title",
-                    attrs: { id: "exampleModalLabel" }
-                  },
-                  [_vm._v("Categorias de Productos")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "close",
-                    attrs: {
-                      type: "button",
-                      "data-dismiss": "modal",
-                      "aria-label": "Close"
-                    }
-                  },
-                  [
-                    _c("span", { attrs: { "aria-hidden": "true" } }, [
-                      _vm._v("×")
-                    ])
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "modal-body" }, [
-                _c("table", { staticClass: "table table-sm table-striped" }, [
-                  _c("tr", [
-                    _c("td", [_vm._v("#")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("Codigo")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("Nombre")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("Acciones")])
-                  ]),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _c("td", [_vm._v("1")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("DGTRF4587")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("Arroz Costenio Graneadito 5 KG")]),
-                    _vm._v(" "),
-                    _c("td", { staticClass: "m-0" }, [
-                      _c("button", { staticClass: "btn btn-primary btn-sm" }, [
-                        _c("i", { staticClass: "fa fa-edit" })
-                      ]),
-                      _vm._v(" "),
-                      _c("button", { staticClass: "btn btn-primary btn-sm" }, [
-                        _c("i", { staticClass: "fa fa-trash" })
-                      ])
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _c("td", [_vm._v("2")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("DGTRF4587")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("Arroz Costenio Graneadito 5 KG")]),
-                    _vm._v(" "),
-                    _c("td", { staticClass: "m-0" }, [
-                      _c("button", { staticClass: "btn btn-primary btn-sm" }, [
-                        _c("i", { staticClass: "fa fa-edit" })
-                      ]),
-                      _vm._v(" "),
-                      _c("button", { staticClass: "btn btn-primary btn-sm" }, [
-                        _c("i", { staticClass: "fa fa-trash" })
-                      ])
-                    ])
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "modal-footer" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-secondary",
-                    attrs: { type: "button", "data-dismiss": "modal" }
-                  },
-                  [_vm._v("Cerrar")]
-                )
-              ])
-            ])
-          ]
-        )
-      ]
-    )
+    return _c("div", { staticClass: "modal-header" }, [
+      _c(
+        "h5",
+        { staticClass: "modal-title", attrs: { id: "exampleModalLabel" } },
+        [_vm._v("Categorias de Productos")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [
+      _c("td", [_vm._v("#")]),
+      _vm._v(" "),
+      _c("td", [_vm._v("Codigo")]),
+      _vm._v(" "),
+      _c("td", [_vm._v("Nombre")]),
+      _vm._v(" "),
+      _c("td", [_vm._v("Acciones")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", { staticClass: "m-0" }, [
+      _c("button", { staticClass: "btn btn-primary btn-sm" }, [
+        _c("i", { staticClass: "fa fa-edit" })
+      ]),
+      _vm._v(" "),
+      _c("button", { staticClass: "btn btn-primary btn-sm" }, [
+        _c("i", { staticClass: "fa fa-trash" })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-footer" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-secondary",
+          attrs: { type: "button", "data-dismiss": "modal" }
+        },
+        [_vm._v("Cerrar")]
+      )
+    ])
   },
   function() {
     var _vm = this
@@ -50095,8 +50094,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/moises/sites/php/invoices/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/moises/sites/php/invoices/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\invoices\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\invoices\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
