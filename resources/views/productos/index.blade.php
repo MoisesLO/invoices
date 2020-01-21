@@ -2,7 +2,7 @@
 @section('content')
   <div class="container">
     <div class="row d-flex justify-content-center">
-      <div class="col-8">
+      <div class="col-11">
 
         {{-- Header Productos--}}
         <div class="d-flex bd-highlight">

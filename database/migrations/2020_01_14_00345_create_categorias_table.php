@@ -12,6 +12,7 @@ class CreateCategoriasTable extends Migration
             $table->bigIncrements('id');
             $table->string('codigo',150);
             $table->string('nombre',200);
+            $table->string('edit',1)->default('0');
             $table->timestamps();
         });
     }

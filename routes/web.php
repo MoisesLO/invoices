@@ -34,20 +34,8 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::post('/categorias', 'ProductoController@categorias')->name('categorias');
+Route::post('/productos', 'ProductoController@productosGetAll')->name('productos');
+Route::post('/productos/save', 'ProductoController@productosSave')->name('productosSave');
 
-Route::get('/customers',function(){
-  $faker = Faker\Factory::create();
-
-  $limit = 10;
-  echo '<ul>';
-  for ($i = 0; $i < $limit; $i++) {
-    $customer = $faker->text(6) . ' - ' . $faker->unique()->email . ' - ' . $faker->phoneNumber;
-    echo "<li> $customer</li>";
-  }
-  echo '</ul>';
-});
-
-
-
-
-
+Route::post('/categorias/save', 'ProductoController@categoriasSaveNew')->name('categoriasSaveNew');
+Route::post('/categorias/update', 'ProductoController@categoriasUpdate')->name('categoriasUpdate');

@@ -9,7 +9,7 @@ window._ = require('lodash');
 try {
     window.Popper = require('popper.js').default;
     window.$ = window.jQuery = require('jquery');
-
+    require('../../public/plugins/select2/js/select2');
     require('bootstrap');
 } catch (e) {}
 
@@ -39,3 +39,14 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     encrypted: true
 // });
+// $(document).ready(function () {
+//    alert("jQuery loaded");
+// });
+$(function () {
+   $('.select2bs4').select2({
+      theme: 'bootstrap4'
+   })
+   // $( ".select2bs4" ).select2({
+   //    theme: "bootstrap"
+   // });
+});
