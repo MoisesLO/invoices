@@ -16,6 +16,7 @@ class CreateProductosTable extends Migration
       $table->string('descripcion')->nullable();
       $table->decimal('preciosinigv', 8, 2);
       $table->decimal('precioconigv', 8, 2);
+       $table->string('edit',1)->default('0');
       $table->unsignedInteger('categoria_id')->nullable();
       $table->timestamps();
     });

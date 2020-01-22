@@ -45,7 +45,10 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 $(function () {
    $('.select2bs4').select2({
       theme: 'bootstrap4'
-   })
+   });
+   $('.select2bs5').select2({
+      theme: 'bootstrap4'
+   });
    // $( ".select2bs4" ).select2({
    //    theme: "bootstrap"
    // });

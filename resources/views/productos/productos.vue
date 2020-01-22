@@ -93,7 +93,7 @@
 
       </div>
       <div class="card-body">
-         {{ $data.productoNew }}
+<!--         {{ $data.productoNew }}-->
          <!-- Tabla Productos -->
          <table class="table table-sm table-striped">
             <thead>
@@ -102,9 +102,9 @@
                <th>Codigo</th>
                <th>Nombre</th>
                <th>Categoria</th>
-               <th>Precio</th>
+               <th>Precio (+Igv)</th>
                <th>IGV</th>
-               <th>Total</th>
+               <th>Precio (- Igv)</th>
                <th>Acciones</th>
             </tr>
             </thead>
@@ -125,13 +125,13 @@
                   </select>
                </td>
                <td>
-                  <input type="text" class="form-control" v-model="productoNew.preciosinigv" placeholder="precio">
+                  <input type="text" class="form-control" v-model="productoNew.precioconigv" @input="productoChangePrice" placeholder="0.00">
                </td>
                <td>
                   <input type="text" class="form-control" v-model="productoNew.igv" placeholder="IGV" disabled>
                </td>
                <td>
-                  <input type="text" class="form-control" v-model="productoNew.total" placeholder="Total">
+                  <input type="text" class="form-control" v-model="productoNew.preciosinigv" placeholder="Total">
                </td>
                <td class="py-sm-1 align-middle">
                   <button class="btn btn-sm btn-success" @click="productoNewSave">
@@ -141,14 +141,32 @@
             </tr>
             <tr v-for="(producto, index) in productos">
                <td>{{index+1}}</td>
-               <td>{{producto.codigo}}</td>
-               <td>{{producto.nombre}}</td>
-               <td>SDRWEGGY457</td>
+               <!-- Codigo -->
+               <td v-if="producto.edit == '1'"><input type="text" class="form-control" v-model="producto.codigo" placeholder="Codigo"></td>
+               <td v-else>{{producto.codigo}}</td>
+
+               <!-- Nombre -->
+               <td v-if="producto.edit == '1'"><input type="text" class="form-control" v-model="producto.nombre" placeholder="Nombre"></td>
+               <td v-else>{{producto.nombre}}</td>
+
+               <!-- Categoria -->
+               <select class="form-control w-100 select2bs5">
+                  <option v-for="(categoria, index) in categorias">
+                     {{categoria.id}}.- {{categoria.nombre}}
+                  </option>
+               </select>
+<!--               <td v-show="producto.edit == '0'">{{ producto.categoria_id}}</td>-->
+
                <td>72.00</td>
                <td>18.00</td>
                <td>100.00</td>
                <td class="py-sm-1">
-                  <button class="btn btn-primary btn-sm p-1"> <i class="fa fa-edit"></i> </button>
+                  <button class="btn btn-primary btn-sm p-1" @click="productoEdit(index)" v-if="producto.edit == '0'">
+                     <i class="fa fa-edit"></i>
+                  </button>
+                  <button class="btn btn-success btn-sm p-1" @click="productoSave(index)" v-else>
+                     <i class="fa fa-edit"></i>
+                  </button>
                </td>
             </tr>
             </tbody>
@@ -176,14 +194,30 @@
                nombre: '',
                descripcion: '',
                categoria_id: 0,
-               preciosinigv: 0.00,
-               precioconigv: 0.00,
-               igv: 0.00,
+               preciosinigv: null,
+               precioconigv: null,
+               igv: null,
                total: 0.00,
             }
          }
       },
       methods: {
+         productoSave: function(i){
+            this.productos[i].edit = '0';
+         },
+         productoEdit: function(i){
+            this.productos[i].edit = '1';
+            console.log(this.productos[i]);
+         },
+         redondear: function(m){
+            var t = Math.pow(10, 2);
+            return (Math.round((num * t) + (2>0?1:0)*(Math.sign(num) * (10 / Math.pow(100, 2)))) / t).toFixed(2);
+         },
+         productoChangePrice: function () {
+            this.productoNew.igv = (this.productoNew.precioconigv * 0.18).toFixed(2);
+            this.productoNew.preciosinigv = (this.productoNew.precioconigv - this.productoNew.igv).toFixed(2);
+            console.log(this.productoNew.preciosinigv)
+         },
          selectCategoria: function(){
             console.log('selecciono')
          },
@@ -217,7 +251,7 @@
             this.openCategorias();
          },
          productosGetAll: function () {
-            axios.post('/productos').then(res => {
+            axios.post('productos').then(res => {
                this.productos = res.data;
                // console.log(res.data);
             });
@@ -230,10 +264,10 @@
                this.productoNew.nombre = '';
                this.productoNew.descripcion = '';
                this.productoNew.categoria_id = null;
-               this.productoNew.preciosinigv = 0.00;
-               this.productoNew.precioconigv = 0.00;
-               this.productoNew.igv = 0.00;
-               this.productoNew.total = 0.00;
+               this.productoNew.preciosinigv = null;
+               this.productoNew.precioconigv = null;
+               this.productoNew.igv = null;
+               this.productoNew.total = null;
             }else{
                this.productoNewActive = true;
             }
@@ -245,7 +279,8 @@
                // console.log(res.data);
             })
             console.log(this.productoNew)
-         }
+         },
+
       },
       directives: {
          select: {
